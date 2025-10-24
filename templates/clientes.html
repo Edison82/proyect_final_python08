@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+</head>
+<body>
+    <h1>Bienvenidos al Sistema de Clientes:</h1><br><br>
+    <h2>Lista de Clientes:</h2>
+    <ul id="lista-clientes"></ul>
+
+    <h2>Agregar Nuevos Clientes</h2>
+    <form id="form-clientes">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required> <br><br>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required> <br><br>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required> <br><br>
+
+        <label for="telefono">Telefono:</label>
+        <input type="tel" id="telefono" name="telefono" required> <br><br>
+
+        <button type="submit">Agregar</button>
+    </form>
+    <script src="/static/script.js"></script>
+</body>
+</html>
