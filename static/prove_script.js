@@ -1,22 +1,23 @@
 let idEditar = null;
 
 window.onload = function () {
-    cargarClientes();
+    cargarProveedores();
 
-    document.getElementById('form-clientes').addEventListener('submit', function (e) {
+    document.getElementById('form-proveedores').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const nombre = document.getElementById('nombre').value;
         const email = document.getElementById('email').value;
         const telefono = document.getElementById('telefono').value;
+        const id_legal = document.getElementById('id_legal').value;
 
         if (modoEditar) {
-            fetch(`/clientes/${idEditar}`, {
+            fetch(`/proveedores/${idEditar}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nombre, email, telefono })
+                body: JSON.stringify({ nombre, email, telefono, id_legal })
             })
             .then(response => {
                 if (!response.ok) throw new Error ("Error al actualizar");
@@ -24,16 +25,16 @@ window.onload = function () {
             })
             .then(() => {
                 resetFormulario();
-                cargarClientes();
+                cargarProveedores();
             })
             .catch( error => console.error('Error al actualizar', error));
         } else {
-            fetch('/clientes', {
+            fetch('/proveedores', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nombre, email, telefono})
+                body: JSON.stringify({ nombre, email, telefono, id_legal})
             })
             .then(response => {
                 if (!response.ok) throw new Error("Error al Agregar");
@@ -41,7 +42,7 @@ window.onload = function () {
             })
             .then(() => {
                 resetFormulario();
-                cargarClientes();
+                cargarProveedores();
             })
             .catch(error => console.error('Error al agregar:', error));
         }
@@ -50,16 +51,16 @@ window.onload = function () {
 
 let modoEditar = false;
 
-function cargarClientes() {
-    fetch('/clientes')
+function cargarProveedores() {
+    fetch('/proveedores')
     .then(response => response.json())
     .then(data => {
-        const lista = document.getElementById('lista-clientes');
+        const lista = document.getElementById('lista-proveedores');
         lista.innerHTML = '';
 
-        data.forEach(cliente => {
+        data.forEach(proveedor => {
             const item = document.createElement('li');
-            item.textContent = `ID: ${cliente.id} - Nombre : ${cliente.nombre} - Email: ${cliente.email} - Telefono: ${cliente.telefono}`;
+            item.textContent = `ID: ${proveedor.id} - Nombre : ${proveedor.nombre} - Email: ${proveedor.email} - Telefono: ${proveedor.telefono} - Identificacion Legal: ${proveedor.id_legal}`;
 
             // Botón eliminar
             const btnEliminar = document.createElement('button');
@@ -71,43 +72,44 @@ function cargarClientes() {
             const btnEditar = document.createElement('button');
             btnEditar.textContent = 'Editar';
             btnEditar.style.marginLeft = '5px';
-            btnEditar.onclick = () => prepararEdicion(cliente);
+            btnEditar.onclick = () => prepararEdicion(proveedor);
 
             item.appendChild(btnEliminar);
             item.appendChild(btnEditar);
             lista.appendChild(item);
         });
     })
-    .catch(error => console.error('Error al cargar cliente:', error));
+    .catch(error => console.error('Error al cargar proveedor:', error));
 }
 
-function eliminarCliente(id) {
-    if (!confirm(`¡Eliminar cliente con ID ${id}`)) return;
+function eliminarProveedor(id) {
+    if (!confirm(`¡Eliminar proveedor con ID ${id}`)) return;
 
-    fetch(`/clientes/${id}`, { method: 'DELETE' })
+    fetch(`/proveedores/${id}`, { method: 'DELETE' })
         .then(response => {
             if (!response.ok) throw new Error("Error al Eliminar");
-            cargarClientes();
+            cargarProveedores();
         })
-        .catch(error => console.error('Error al eliminar cliente:', error));
+        .catch(error => console.error('Error al eliminar proveedor:', error));
 }
 
-function prepararEdicion(cliente) {
-    document.getElementById('id').value = cliente.id;
-    document.getElementById('nombre').value = cliente.nombre;
-    document.getElementById('email').value = cliente.email;
-    document.getElementById('telefono').value = cliente.telefono;
+function prepararEdicion(proveedor) {
+    document.getElementById('id').value = proveedor.id;
+    document.getElementById('nombre').value = proveedor.nombre;
+    document.getElementById('email').value = proveedor.email;
+    document.getElementById('telefono').value = proveedor.telefono;
+    document.getElementById('id_legal').value = proveedor.id_legal;
 
     modoEditar = true;
-    idEditar = cliente.id;
+    idEditar = proveedor.id;
 
     // Cambiar botón
-    document.querySelector('#form-clientes button[type="submit"]').textContent = "Actualizar Clientes";
+    document.querySelector('#form-proveedores button[type="submit"]').textContent = "Actualizar Proveedores";
 }
 
 function resetFormulario() {
-    document.getElementById('form-clientes').reset();
+    document.getElementById('form-proveedores').reset();
     modoEditar = false;
     idEditar = null;
-    document.querySelector('#form-clientes button[type="submit"]').textContent = "Agregar Clientes";
+    document.querySelector('#form-proveedores button[type="submit"]').textContent = "Agregar Proveedores";
 }

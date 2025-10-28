@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # URL de la base de datos SQLite
 SQLALCHEMY_DATABASE_URL = "sqlite:///./clientes.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./proveedores.db"
 
 # Crear  el motor de conexión 
 engine = create_engine(

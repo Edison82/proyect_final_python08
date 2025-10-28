@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
+    <title>Proveedores</title>
 </head>
 <body>
-    <h1>Bienvenidos al Sistema de Clientes:</h1><br><br>
-    <h2>Lista de Clientes:</h2>
-    <ul id="lista-clientes"></ul>
+    <h1>Datos de Proveedores:</h1><br><br>
+    <h2>Lista de Proveedores:</h2>
+    <ul id="lista-proveedores"></ul>
 
     <h2>Agregar Nuevos Clientes</h2>
-    <form id="form-clientes">
+    <form id="form-proveedores">
 
         <label for="id">ID:</label>
         <input type="text" id="id" name="id" disabled> <br><br>
@@ -25,8 +25,12 @@
         <label for="telefono">Telefono:</label>
         <input type="tel" id="telefono" name="telefono" required> <br><br>
 
+        <label for="id_legal">Identificación Legal:</label>
+        <input type="id" id="id_legal" name="id_legal" required> <br><br>
+        
+
         <button type="submit">Agregar</button>
     </form>
-    <script src="/static/script.js"></script>
+    <script src="/static/prove_script.js"></script>
 </body>
 </html>
